@@ -24,9 +24,9 @@ function Index() {
   ];
 
   const galleryItems = [
-    { id: 1, color: 'from-purple-400 to-pink-400', emoji: '💜' },
-    { id: 2, color: 'from-blue-400 to-cyan-400', emoji: '💙' },
-    { id: 3, color: 'from-orange-400 to-red-400', emoji: '🧡' },
+    { id: 1, image: 'https://cdn.poehali.dev/projects/878ced70-d4f9-47d5-a8c0-9ae989dbe5cc/files/a98d23e8-40d0-4e1a-8b22-a1c19527be58.jpg', title: 'Эмоции' },
+    { id: 2, image: 'https://cdn.poehali.dev/projects/878ced70-d4f9-47d5-a8c0-9ae989dbe5cc/files/c7b6cb8e-9ea2-4175-8065-5550ed539303.jpg', title: 'Спокойствие' },
+    { id: 3, image: 'https://cdn.poehali.dev/projects/878ced70-d4f9-47d5-a8c0-9ae989dbe5cc/files/d39c721e-18be-40e8-b61b-fe88ed3e7df9.jpg', title: 'Тепло' },
     { id: 4, color: 'from-green-400 to-emerald-400', emoji: '💚' },
     { id: 5, color: 'from-yellow-400 to-orange-400', emoji: '💛' },
     { id: 6, color: 'from-pink-400 to-rose-400', emoji: '💗' },
@@ -161,10 +161,19 @@ function Index() {
               {galleryItems.map((item, idx) => (
                 <div
                   key={item.id}
-                  className={`h-64 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-8xl cursor-pointer hover:scale-105 transition-all shadow-xl hover:shadow-2xl animate-scale-in`}
+                  className={`h-64 rounded-2xl overflow-hidden ${item.color ? `bg-gradient-to-br ${item.color}` : ''} flex items-center justify-center text-8xl cursor-pointer hover:scale-105 transition-all shadow-xl hover:shadow-2xl animate-scale-in relative group`}
                   style={{ animationDelay: `${idx * 0.1}s` }}
                 >
-                  {item.emoji}
+                  {item.image ? (
+                    <>
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span className="text-white text-2xl font-bold">{item.title}</span>
+                      </div>
+                    </>
+                  ) : (
+                    item.emoji
+                  )}
                 </div>
               ))}
             </div>
